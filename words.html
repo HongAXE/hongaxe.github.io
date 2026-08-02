@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<br /><html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Warma档案馆</title>
+    <meta name="description" content="关于Warma的个人档案、作品与温暖日常，献给喜欢Warma的你。">
+    <style>
+        /* ----- 全局重置 & 设计变量 (参考Kazumi风格，红色调定制) ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 浅色模式变量 */
+            --vp-c-bg: #ffffff;
+            --vp-c-bg-soft: #f9f9f9;
+            --vp-c-bg-alt: #f1f1f1;
+            --vp-c-text-1: #2c3e50;
+            --vp-c-text-2: #566b78;
+            --vp-c-text-3: #8a9aa8;
+            --vp-c-brand-1: #CA494B;
+            --vp-c-brand-soft: rgba(202, 73, 75, 0.14);
+            --vp-c-border: #e2e8f0;
+            --vp-c-divider: #eaeef2;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --card-border: rgba(255, 255, 255, 0.5);
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.08);
+            --backdrop-blur: blur(12px);
+        }
+
+        body.dark {
+            /* 深色模式变量 */
+            --vp-c-bg: #1e1e20;
+            --vp-c-bg-soft: #252529;
+            --vp-c-bg-alt: #2c2c30;
+            --vp-c-text-1: #ececf4;
+            --vp-c-text-2: #b0b3b8;
+            --vp-c-text-3: #7f8287;
+            --vp-c-brand-1: #CA494B;
+            --vp-c-brand-soft: rgba(202, 73, 75, 0.2);
+            --vp-c-border: #33333a;
+            --vp-c-divider: #2a2a2e;
+            --card-bg: rgba(30, 30, 32, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            background-color: var(--vp-c-bg);
+            color: var(--vp-c-text-1);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            transition: background-color 0.25s ease, color 0.2s ease;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            /* 防止固定导航栏遮挡内容 */
+            padding-top: 80px;
+        }
+
+        /* 公共容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 毛玻璃卡片 (参考Kazumi优雅玻璃态) */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border-radius: 32px;
+            padding: 28px 24px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 标题风格 */
+        h1 {
+            font-size: 2.8rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #CA494B, #ffb347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem;
+            border-left: 4px solid var(--vp-c-brand-1);
+            padding-left: 1rem;
+        }
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--vp-c-brand-1);
+        }
+
+        /* ========== 新导航栏样式 ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--vp-c-bg);
+            border-bottom: 1px solid var(--vp-c-divider);
+            backdrop-filter: blur(10px);
+            background-color: rgba(var(--vp-c-bg-rgb), 0.85);
+            z-index: 1000;
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--vp-c-brand-1), #ff9f4a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            line-height: 1.2;
+        }
+        /* 下拉菜单按钮 */
+        .menu-toggle {
+            background: var(--vp-c-bg-soft);
+            border: 1px solid var(--vp-c-border);
+            border-radius: 40px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.8rem;
+            font-weight: 600;
+            transition: 0.2s;
+            color: var(--vp-c-brand-1);
+        }
+        .menu-toggle:hover {
+            background: var(--vp-c-brand-soft);
+        }
+        /* 下拉目录栏 */
+        .dropdown-nav {
+            position: fixed;
+            top: 68px;
+            right: 20px;
+            background: var(--card-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border-radius: 28px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-md);
+            padding: 16px 0;
+            min-width: 200px;
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .dropdown-nav.show {
+            display: flex;
+        }
+        .dropdown-nav a, .dropdown-theme {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--vp-c-text-1);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+            cursor: pointer;
+            font-size: 1rem;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .dropdown-nav a:hover, .dropdown-theme:hover {
+            background: var(--vp-c-brand-soft);
+            color: var(--vp-c-brand-1);
+        }
+        .dropdown-divider {
+            height: 1px;
+            background: var(--vp-c-divider);
+            margin: 8px 0;
+        }
+        /* 移除原来的 .nav-links */
+        .nav-links {
+            display: none;
+        }
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            .dropdown-nav {
+                right: 12px;
+                left: 12px;
+                min-width: auto;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .info-label {
+                width: 80px;
+            }
+        }
+
+        /* 英雄区 */
+        .hero {
+            padding: 2rem 0 3rem;
+            text-align: center;
+        }
+        .hero .tagline {
+            font-size: 1.2rem;
+            color: var(--vp-c-text-2);
+            max-width: 700px;
+            margin: 1rem auto 2rem;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--vp-c-brand-1);
+            color: white;
+            box-shadow: 0 4px 12px rgba(202, 73, 75, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #b03e40;
+            box-shadow: 0 8px 18px rgba(202, 73, 75, 0.4);
+        }
+        .btn-outline {
+            border: 1px solid var(--vp-c-brand-1);
+            color: var(--vp-c-brand-1);
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: var(--vp-c-brand-soft);
+            transform: translateY(-2px);
+        }
+        /* 特性网格 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .feature-card {
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        /* 档案列表 */
+        .info-list {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+        .info-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--vp-c-divider);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+        }
+        .info-label {
+            font-weight: 700;
+            width: 100px;
+            color: var(--vp-c-brand-1);
+        }
+        .info-value {
+            flex: 1;
+            color: var(--vp-c-text-1);
+        }
+        /* 作品网格 */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0;
+        }
+        .work-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border-radius: 28px;
+            padding: 1.5rem;
+            border: 1px solid var(--card-border);
+            transition: all 0.2s;
+        }
+        .work-card:hover {
+            transform: translateY(-5px);
+        }
+        .work-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--vp-c-brand-1);
+            margin-bottom: 0.5rem;
+        }
+        .fun-fact {
+            background: var(--vp-c-brand-soft);
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--vp-c-brand-1);
+        }
+        .quote-box {
+            font-style: italic;
+            padding: 1.8rem;
+            background: var(--card-bg);
+            border-radius: 28px;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px solid var(--card-border);
+        }
+        /* 页脚 */
+        .footer {
+            margin-top: 5rem;
+            border-top: 1px solid var(--vp-c-divider);
+            padding: 3rem 0 2rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-col h4 {
+            color: var(--vp-c-brand-1);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col li {
+            margin-bottom: 0.6rem;
+        }
+        .footer-col a {
+            color: var(--vp-c-text-2);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .footer-col a:hover {
+            color: var(--vp-c-brand-1);
+        }
+        .copyright {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--vp-c-text-3);
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--vp-c-divider);
+        }
+    </style>
+</head>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<body class="dark">
+    <!-- 新导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="/work/1" class="logo">Warma<br>档案馆</a>
+            <div class="menu-toggle" id="menuToggle">∨</div>
+        </div>
+    </nav>
+
+    <!-- 下拉目录栏 -->
+    <div class="dropdown-nav" id="dropdownNav">
+        <a href="#profile">📖 档案</a>
+        <a href="#works">🎬 代表作</a>
+        <a href="#fun">🍥 趣闻</a>
+        <a href="/work/1">首页</a>
+        <a href="/work/1/words" target="_blank" rel="noopener">Warma 名言</a>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-theme" id="dropdownThemeToggle">
+            <span id="themeIcon">☀️</span> 切换主题
+        </div>
+    </div>
+
+        <!-- Warma 名言 -->
+        <div class="container">
+            <h2> Warma 名言</h2>
+            <div class="features-grid" style="margin-top: 0.5rem;">
+                <div class="glass-card" style="text-align: center;">
+
+                    <h3 style="font-size: 1.1rem;">一个人的生命是有限的，他能经历的痛苦也是有限的</h3>
+                    <div style="text-align: left;">
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+        因为痛苦经历得太多人就死了。我只有两个胳膊，我断一个还剩一个，我再断一次我就没了。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+        我总不能为了创作出一些痛苦的艺术而去割断自己的身体，让自己受伤。而更多的艺术家他们描写的是看到的痛苦，他们把这个痛苦记录下来警醒世人，是这个样子的。如果一个艺术家为了描写那些生离死别的痛苦，然后就自己先去死一遍，或着他把身边的人给杀了，完全没有必要这样子，对吧。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+        我觉得完全没有必要为了艺术、创作、写作去伤害自己，把自己变成痛苦的本身，这是完全没有必要的。千万千万不要为了任何事情去伤害自己。
+    </p>
+</div>
+                    <p style="margin-top: 0.7rem; color: var(--vp-c-brand-1); font-size: 0.85rem; font-style: italic;">—— [爆炸电台·第十一期]曾经性格阴沉的我正在分享创作心得与日常</p>
+                </div>
+
+
+
+                <div class="glass-card" style="text-align: center;">
+                    <h3 style="font-size: 1.1rem;">“想过自己以后到底要做什么，但是害怕自己万一做不成该怎么办？”</h3>
+                    <div style="text-align: left;">
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+        嗯…其实我觉得这个问题，我们应该从出发点开始讨论一下，就是为什么，为什么一定要做成这件事呢？是的，为什么一定要做成呢？为什么一定要有个结果呢？其实啊，对我来说的话，我觉得做一件事情，更重要的是这个过程。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+        比如说，你小的时候，有没有折过纸？小时候正在折纸的你，有想过我现在开始折纸了，我就一定要成为折纸大师吗？你没有想过，是的，但是你仍然折得很开心。而且折纸这件事情，现在也成为你童年的一个回忆，甚至有可能是你现在偶尔也会做的事情。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+        我觉得就是因为有这些做的时候不考虑自己会不会做成的，这些随性而为的事情，才造就了现在的你。所以我觉得倒不用特别去在意有没有一个成果反正，想试试的话，那就去试一试喽。你可以试着先跟自己说：我就坚持一个星期。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    既然想做这件事情，我做一个星期，看看一个星期之后有没有效果。我觉得很多事情应该一个星期都可以入门了。比如说你想健身的话，一个星期你就能感觉到自己的身体变紧致了；如果想入门一个语言的话，一个星期至少你可以知道该怎么做了。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    一个星期可以做很多事情的，你可以试试先做一个星期(哪怕每天抽出半个小时也很足够啦！)看看自己有没有对这方面有更加的清楚和了解，看看自己擅不擅长，要是不擅长的话，一个星期你也试过了，那就停下来就好了。要是觉得意外地发现：诶我还挺擅长这个的嘛！那继续做下去就好了。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    或着说，如果担心自己会失败，担心自己做不好，这个担心的情绪让你没有办法开始第一步的话，那你就什么也不想，哪怕是逼着自己，假设现在我拿着把刀，没错，沃玛拿着一把刀，架在你的脖子上：“快点去做这件事情，”对，我在逼着你，“不准多想，快去做这件事情。”然后赶紧开工，你不得不去开工，哪怕是逼着自己也去试一试。试一个星期，说不定你就会发现自己挺厉害的。对。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    再做一个比喻的话，就是我前阵子…也不是前阵子，就是半年前，在上期电台里面，不是也提到了尤克里里吗，我想学尤克里里。电台录完之后，我就开始学了，就去学了。虽然我现在弹的也不怎么样，也没有让我成为一个尤克里里大师，但是算是入门了，而且在学这个尤克里里的过程，我觉得我自己还是收获蛮多的。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    首先是乐理的知误嘛，因为是个乐器，要学乐理；然后呢，还锻炼了我自制力，是的，自制力，因为每天都要去做这件事情嘛，我就，哪怕不想去做，不想去练的时候，还是去练了…就是这种作斗争的感觉，我觉得锻炼了自己的心智；而且还因为弹尤克里里，让我交到了一些同样喜欢尤克里里的朋友。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    又是锻炼了心智，又是交到了朋友，还学到了一些乐理知识，同时让自己发现：原来我还有这样的可能性。光是这些收获，我觉得就比学尤克里里本身，还要更加有意义了。至于尤克里里最后弹得怎样，对我来说已经不重要了，我觉得这个过程中，我已经收获很多东西了，这样就足够了。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    所以说，如果我一开始就把目标放在：“好，我要开始学尤克里里了，我要成大师，我一定要做出一个成果来”的话，我可能一步也迈不出去了。
+    </p>
+</div>
+                    <p style="margin-top: 0.7rem; color: var(--vp-c-brand-1); font-size: 0.85rem; font-style: italic;">—— [爆炸电台·第九期]来聊些以前从没说过的吧</p>
+                </div>
+
+
+
+                <div class="glass-card" style="text-align: center;">
+                    <h3 style="font-size: 1.1rem;">你的人生其实是有很多面的</h3>
+                    <div style="text-align: left;">
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    如果你把其中某一面无限放大，其他面全都不顾的话，很快你就会发现，你的人生天平要倾斜，要塌掉了，至于什么时候倾斜什么时候塌，这只是一个时间问题，明明其实人生有那么多重要的东西。
+    </p>
+</div>
+                    <p style="margin-top: 0.7rem; color: var(--vp-c-brand-1); font-size: 0.85rem; font-style: italic;">—— [爆炸电台·第十期]我做过的荒唐事</p>
+                </div>
+
+
+
+                <div class="glass-card" style="text-align: center;">
+                    <h3 style="font-size: 1.1rem;">很多年过去了，我才终于想明白一件事情</h3>
+                    <div style="text-align: left;">
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    我的成绩，我的分数，我的排名，只和我一个人有关，谁也不会为我的成绩负责，即使我去复读了，那复读的人也是我，不是他们。因为我对我的分数是问心无愧的，不论是怎样的结果还是后果，我都能承担得起，那我就没有对不起任何人。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    这是我这一两年才意识到的一件事情，如果这个道理我能够早点明白的话，其实当时高考的我，压力就不会那么大了。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    当时高考的时候，我总觉得身上背负了全家的压力，一家人都看着我了。但其实，其实我没有背负任何人的压力，不论是高考还是任何考试，我只需要为我一个人负责就可以了。而且我也本应该只需要对我自己负责。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    至于别人的期望，那是一种很廉价的东西，谁都可以期望，随口一说就可以说出个期望。但是承受这个期望的人，却那么地辛苦，没有必要。这是一个不必要的道德负担。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    你就可以先问自己：“如果说我考得不好，那么它带来的这个后果，这个结果，我能承担吗？我能心甘情愿地去承担这个结果吗？”如果你可以的话，那么这就是对自己生活负责的体现了。如果你发现自己能够做到对自己生活负责了，那么慢慢地，其实你的生活的主动权也会回到你自己的手上了。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+    因为你都有这样的觉悟了呀：因为我做好决心了，不论会带来怎样的后果，我都愿意承担，我能扛得住。那么相应地你就会有同样的勇气去做出这样的选择，并且是自己心甘情愿的发自内心的选择；你也不会再去埋怨任何人了，因为你会发现这些都是自己的选择带来的。如果这个道理我能早点想明白的话，也许就不会那么多烦恼了。
+    </p>
+    <p style="text-indent: 2em; margin-bottom: 0.8rem;">
+</div>
+                    <p style="margin-top: 0.7rem; color: var(--vp-c-brand-1); font-size: 0.85rem; font-style: italic;">—— [爆炸电台·第十期]我做过的荒唐事</p>
+                </div>
+
+
+
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- 关于本站 -->
+                <div class="footer-col">
+                    <h4>🌸 关于本站</h4>
+                    <ul>
+                        <li style="color: var(--vp-c-text-2); font-size: 0.9rem; line-height: 1.6;">
+                            非官方粉丝档案馆，<br>记录Warma的所有信息。
+                        </li>
+                        <li style="margin-top: 0.6rem;">
+                            <a href="/" target="_blank" rel="noopener">由 HongAX 制作</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/HongAXE/hongaxe.github.io" target="_blank" rel="noopener">托管于 GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+            
+                <!-- 官方通道 -->
+                <div class="footer-col">
+                    <h4>🔗 官方通道</h4>
+                    <ul>
+                        <li><a href="https://space.bilibili.com/53456" target="_blank" rel="noopener">Warma的B站</a></li>
+                        <li><a href="https://weibo.com/u/1782488734" target="_blank" rel="noopener">Warma的微博</a></li>
+                        <li><a href="https://store.steampowered.com/app/2758540/_/" target="_blank" rel="noopener">《我的小鲨鱼》Steam</a></li>
+                    </ul>
+                </div>
+            
+                <!-- 新增：网站信息 -->
+                <div class="footer-col">
+                    <h4>📊 网站信息</h4>
+                    <ul>
+                        <li style="color: var(--vp-c-text-2); font-size: 0.9rem;">
+                            🖥️ 总访问 <span id="busuanzi_value_site_pv">0</span> 次
+                        </li>
+                        <li style="color: var(--vp-c-text-2); font-size: 0.9rem;">
+                            👤 总访客 <span id="busuanzi_value_site_uv">0</span> 人
+                        </li>
+                        <li style="color: var(--vp-c-text-3); font-size: 0.8rem; margin-top: 0.4rem;">
+                            最后更新：2026年6月
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+    <!-- JavaScript: 下拉菜单控制和主题切换 -->
+    <script>
+        (function() {
+            // 获取元素
+            const menuToggle = document.getElementById('menuToggle');
+            const dropdown = document.getElementById('dropdownNav');
+            const dropdownThemeBtn = document.getElementById('dropdownThemeToggle');
+            const themeIconSpan = document.getElementById('themeIcon');
+            
+            // 主题切换逻辑（与原来一致）
+            const getStoredTheme = () => localStorage.getItem('warma-theme');
+            const setStoredTheme = (theme) => localStorage.setItem('warma-theme', theme);
+            
+            const setTheme = (isDark) => {
+                if (isDark) {
+                    document.body.classList.add('dark');
+                    if (themeIconSpan) themeIconSpan.innerHTML = '☀️';
+                } else {
+                    document.body.classList.remove('dark');
+                    if (themeIconSpan) themeIconSpan.innerHTML = '🌙';
+                }
+            };
+            
+            // 初始化主题
+            const stored = getStoredTheme();
+            if (stored === 'dark') {
+                setTheme(true);
+            } else if (stored === 'light') {
+                setTheme(false);
+            } else {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(prefersDark);
+            }
+            
+            // 下拉菜单开关
+            function toggleDropdown(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('show');
+            }
+            
+            function closeDropdown() {
+                dropdown.classList.remove('show');
+            }
+            
+            menuToggle.addEventListener('click', toggleDropdown);
+            
+            // 点击页面其他地方关闭下拉菜单
+            document.addEventListener('click', function(event) {
+                if (!dropdown.contains(event.target) && event.target !== menuToggle && !menuToggle.contains(event.target)) {
+                    closeDropdown();
+                }
+            });
+            
+            // 点击菜单内链接后关闭菜单
+            const dropdownLinks = dropdown.querySelectorAll('a');
+            dropdownLinks.forEach(link => {
+                link.addEventListener('click', closeDropdown);
+            });
+            
+            // 下拉菜单中的主题切换按钮
+            dropdownThemeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isDark = document.body.classList.contains('dark');
+                if (isDark) {
+                    setTheme(false);
+                    setStoredTheme('light');
+                } else {
+                    setTheme(true);
+                    setStoredTheme('dark');
+                }
+                closeDropdown();
+            });
+            
+            // 为防止导航栏遮挡锚点，手动偏移滚动位置（可选）
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        const offset = 80; // 导航栏高度 + 一点余量
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        })();
+    </script>
+
+</body></html>
