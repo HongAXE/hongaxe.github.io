@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HongAX-Work-2</title>
+    <style>
+        /* ── 全局重置 & 基础 ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── 背景装饰 ── */
+        .bg-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(22, 63, 118, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(56, 139, 253, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(13, 17, 23, 1) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── 布局容器 ── */
+        header,
+        main,
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── 头部 ── */
+        header {
+            padding: 20px 40px;
+            border-bottom: 1px solid #21262d;
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icon {
+            font-size: 22px;
+            color: #58a6ff;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #f0f6fc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .header-title:hover {
+            color: #58a6ff;
+        }
+
+        .header-home {
+            color: #58a6ff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .header-home:hover {
+            color: #79c0ff;
+            text-decoration: underline;
+        }
+
+        /* ── 主内容 ── */
+        main {
+            flex: 1;
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+
+        /* 标题区 */
+        .page-title {
+            margin-bottom: 40px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #f0f6fc;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .page-title .sub {
+            font-size: 16px;
+            color: #8b949e;
+            font-weight: 400;
+        }
+
+        /* ── Release 区域 ── */
+        .release-section {
+            margin-top: 8px;
+        }
+
+        .release-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #f0f6fc;
+            border-bottom: 1px solid #21262d;
+            padding-bottom: 16px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .release-section h2::after {
+            content: "· " attr(data-count) " 个版本";
+            font-size: 14px;
+            font-weight: 400;
+            color: #8b949e;
+        }
+
+        /* ── 发布条目 ── */
+        .release-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .release-item {
+            display: flex;
+            gap: 20px;
+            padding: 18px 20px 18px 24px;
+            border-radius: 8px;
+            background: transparent;
+            transition: background 0.2s ease;
+            border-left: 3px solid transparent;
+            align-items: flex-start;
+        }
+
+        .release-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* 最新版本高亮 */
+        .release-item.latest {
+            background: rgba(56, 139, 253, 0.06);
+            border-left-color: #58a6ff;
+            border-radius: 8px 8px 8px 0;
+        }
+
+        .release-item.latest .version-badge {
+            background: #238636;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 1px 10px;
+            border-radius: 20px;
+            margin-left: 10px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        /* 左侧：版本信息 */
+        .release-left {
+            flex: 0 0 180px;
+            min-width: 140px;
+            padding-top: 2px;
+        }
+
+        .release-left .version {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .release-left .version .tag {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f0f6fc;
+            letter-spacing: -0.3px;
+            font-family: "SF Mono", "JetBrains Mono", "Fira Code", monospace;
+        }
+
+        .release-left .version .tag a {
+            color: #f0f6fc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .release-left .version .tag a:hover {
+            color: #58a6ff;
+        }
+
+        .release-left .date {
+            font-size: 13px;
+            color: #8b949e;
+            margin-top: 4px;
+            display: block;
+            font-feature-settings: "tnum";
+        }
+
+        /* 右侧：简介 */
+        .release-right {
+            flex: 1;
+            min-width: 0;
+            padding-top: 2px;
+        }
+
+        .release-right .desc {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #c9d1d9;
+            word-break: break-word;
+        }
+
+        .release-right .desc .highlight {
+            color: #58a6ff;
+            font-weight: 500;
+        }
+
+        .release-right .desc .label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 0 8px;
+            border-radius: 4px;
+            background: rgba(56, 139, 253, 0.15);
+            color: #58a6ff;
+            margin-right: 4px;
+        }
+
+        .release-right .desc .label.green {
+            background: rgba(35, 134, 54, 0.2);
+            color: #3fb950;
+        }
+
+        .release-right .desc .label.orange {
+            background: rgba(219, 109, 40, 0.2);
+            color: #d29922;
+        }
+
+        .release-right .desc .label.purple {
+            background: rgba(188, 65, 217, 0.2);
+            color: #bc4dd9;
+        }
+
+        .release-right .changelog {
+            margin-top: 8px;
+            padding-left: 18px;
+            font-size: 14px;
+            color: #8b949e;
+            list-style: none;
+        }
+
+        .release-right .changelog li {
+            position: relative;
+            padding: 1px 0;
+            line-height: 1.5;
+        }
+
+        .release-right .changelog li::before {
+            content: "•";
+            position: absolute;
+            left: -14px;
+            color: #58a6ff;
+            font-weight: 700;
+        }
+
+        .release-right .changelog li .emoji {
+            margin-right: 4px;
+        }
+
+        /* ── 下载链接 ── */
+        .download-link {
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px dashed #21262d;
+        }
+
+        .download-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 16px 4px 12px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #58a6ff;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            background: transparent;
+            word-break: break-all;
+        }
+
+        .download-link a:hover {
+            background: rgba(56, 139, 253, 0.08);
+            border-color: #58a6ff;
+            color: #79c0ff;
+        }
+
+        .download-link a .dl-icon {
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .download-link a .dl-hint {
+            font-weight: 400;
+            color: #8b949e;
+            font-size: 11px;
+            margin-left: 2px;
+            word-break: break-all;
+        }
+
+        /* ── 分割线 ── */
+        .release-divider {
+            height: 1px;
+            background: linear-gradient(90deg, #21262d, transparent);
+            margin: 4px 0 4px 24px;
+        }
+
+        .release-item:last-child .release-divider {
+            display: none;
+        }
+
+        /* ── 页脚 ── */
+        footer {
+            text-align: center;
+            padding: 24px 20px;
+            font-size: 14px;
+            color: #484f58;
+            border-top: 1px solid #21262d;
+            background: rgba(13, 17, 23, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        footer a {
+            color: #58a6ff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: #79c0ff;
+            text-decoration: underline;
+        }
+
+        /* ── 响应式 ── */
+        @media (max-width: 700px) {
+            header {
+                padding: 14px 20px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .header-title {
+                font-size: 15px;
+            }
+
+            .header-home {
+                font-size: 14px;
+            }
+
+            main {
+                padding: 24px 16px 40px;
+            }
+
+            .page-title h1 {
+                font-size: 24px;
+            }
+
+            .release-item {
+                flex-direction: column;
+                gap: 6px;
+                padding: 16px 16px 16px 18px;
+            }
+
+            .release-left {
+                flex: unset;
+                width: 100%;
+                min-width: unset;
+            }
+
+            .release-left .version .tag {
+                font-size: 16px;
+            }
+
+            .release-left .date {
+                font-size: 12px;
+                margin-top: 2px;
+            }
+
+            .release-right .desc {
+                font-size: 14px;
+            }
+
+            .release-right .changelog {
+                font-size: 13px;
+                padding-left: 16px;
+            }
+
+            .download-link a {
+                font-size: 12px;
+                padding: 3px 12px 3px 10px;
+                flex-wrap: wrap;
+            }
+
+            .release-divider {
+                margin-left: 16px;
+            }
+
+            .release-section h2 {
+                font-size: 20px;
+            }
+
+            .release-section h2::after {
+                font-size: 12px;
+            }
+
+            .release-item.latest .version-badge {
+                font-size: 9px;
+                padding: 0 8px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            header {
+                font-size: 13px;
+                padding: 10px 14px;
+            }
+
+            .header-icon {
+                font-size: 18px;
+            }
+
+            .header-title {
+                font-size: 13px;
+            }
+
+            .header-home {
+                font-size: 13px;
+            }
+
+            .page-title h1 {
+                font-size: 20px;
+            }
+
+            .release-item {
+                padding: 12px 12px 12px 14px;
+            }
+
+            .release-left .version .tag {
+                font-size: 14px;
+            }
+
+            .download-link a {
+                font-size: 11px;
+                padding: 2px 10px 2px 8px;
+            }
+        }
+
+        /* ── 滚动条美化 ── */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0d1117;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #484f58;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-img"></div>
+
+    <!-- 头部：左侧标题可点击返回首页，右侧有“返回首页”链接 -->
+    <header>
+        <span class="header-left">
+            <span class="header-icon">⬡</span>
+            <a href="/" class="header-title">HongAX-Work-2</a>
+        </span>
+        <a href="/" class="header-home">← 返回首页</a>
+    </header>
+
+    <main>
+        <!-- 标题 -->
+        <div class="page-title">
+            <h1>HongAX 的自动贩卖机</h1>
+            <p class="sub">2025-2026 第二学期信息课期末作业</p>
+            <p class="sub">仅收录正式版及其以后发布版本</p>
+            <p class="sub">下载后将文件后缀.txt改为.py</p>
+            <p class="sub">(我到底是有多闲才会给这个破玩意儿搭建项目主页━(￣ー￣*|||━━)</p>
+        </div>
+
+        <!-- Release 发布页 -->
+        <section class="release-section">
+            <h2 data-count="4">📦 Release</h2>
+
+            <div class="release-list">
+
+                <!-- ─── v2.0.0 · 最新 ─── -->
+                <div class="release-item latest">
+                    <div class="release-left">
+                        <div class="version">
+                            <span class="tag">
+                                <a href="#v2.0.0">v2.0.0</a>
+                            </span>
+                            <span class="version-badge">最新</span>
+                        </div>
+                        <span class="date">2026-06-26</span>
+                    </div>
+                    <div class="release-right">
+                        <div class="desc">
+                            <span class="label green">✨ 重大更新</span>
+                            第一代个人主页、项目主页
+                        </div>
+                        <ul class="changelog">
+                            <li><span class="emoji">🔗</span> 制作个人主页与程序发布主页</li>                            
+                            <li><span class="emoji">🖥</span> 属性界面支持打印主页网站</li>
+                        </ul>
+                        <div class="download-link">
+                            <a href="https://wwamp.lanzouu.com/i7ov63t5l26h" target="_blank">
+                                <span class="dl-icon">⬇</span> 下载 v2.0.0
+                                <span class="dl-hint">https://wwamp.lanzouu.com/i7ov63t5l26h</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="release-divider"></div>
+                </div>
+
+                <!-- ─── v1.1.1 ─── -->
+                <div class="release-item">
+                    <div class="release-left">
+                        <div class="version">
+                            <span class="tag">
+                                <a href="#v1.1.1">v1.1.1</a>
+                            </span>
+                        </div>
+                        <span class="date">2026-06-26</span>
+                    </div>
+                    <div class="release-right">
+                        <div class="desc">
+                            <span class="label purple">🔧 改进</span>
+                            丰富功能，支持查看源码
+                        </div>
+                        <ul class="changelog">
+                            <li><span class="emoji">📱</span> 在属性界面中支持打印源代码</li>
+                        </ul>
+                        <div class="download-link">
+                            <a href="https://wwamp.lanzouu.com/iuwzB3t3o21i" target="_blank">
+                                <span class="dl-icon">⬇</span> 下载 v1.1.1
+                                <span class="dl-hint">https://wwamp.lanzouu.com/iuwzB3t3o21i</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="release-divider"></div>
+                </div>
+
+                <!-- ─── v1.1.0 ─── -->
+                <div class="release-item">
+                    <div class="release-left">
+                        <div class="version">
+                            <span class="tag">
+                                <a href="#v1.1.0">v1.1.0</a>
+                            </span>
+                        </div>
+                        <span class="date">2026-06-26</span>
+                    </div>
+                    <div class="release-right">
+                        <div class="desc">
+                            <span class="label">🔧 属性</span>
+                            新增查看属性功能
+                        </div>
+                        <ul class="changelog">
+                            <li><span class="emoji">📦</span> 查看版本号</li>
+                            <li><span class="emoji">👤</span> 查看开发者</li>
+                            <li><span class="emoji">📋</span> 查看更新日志</li>
+                            <li><span class="emoji">📊</span> 查看文件大小</li>
+                        </ul>
+                        <div class="download-link">
+                            <a href="https://wwamp.lanzouu.com/iUp4V3t3o20h" target="_blank">
+                                <span class="dl-icon">⬇</span> 下载 v1.1.0
+                                <span class="dl-hint">https://wwamp.lanzouu.com/iUp4V3t3o20h</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="release-divider"></div>
+                </div>
+
+                <!-- ─── v1.0.0 ─── -->
+                <div class="release-item">
+                    <div class="release-left">
+                        <div class="version">
+                            <span class="tag">
+                                <a href="#v1.0.0">v1.0.0</a>
+                            </span>
+                        </div>
+                        <span class="date">2026-06-18</span>
+                    </div>
+                    <div class="release-right">
+                        <div class="desc">
+                            <span class="label green">🎉 首次发布</span>
+                            HongAX 自动贩卖机正式版上线
+                        </div>
+                        <ul class="changelog">
+                            <li><span class="emoji">🛒</span> 顾客模式</li>
+                            <li><span class="emoji">👤</span> 管理员模式</li>
+                            <li><span class="emoji">📋</span> 商品浏览</li>
+                            <li><span class="emoji">↩️</span> 按 [0] 返回</li>
+                        </ul>
+                        <div class="download-link">
+                            <a href="https://wwamp.lanzouu.com/ifiXc3t3o1zg" target="_blank">
+                                <span class="dl-icon">⬇</span> 下载 v1.0.0
+                                <span class="dl-hint">https://wwamp.lanzouu.com/ifiXc3t3o1zg</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="release-divider"></div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        本网站由 <a href="https://github.com/HongAXE/hongaxe.github.io" target="_blank">GitHub</a> 强力驱动。<br>
+        © 2026 HongAX 的个人主页
+    </footer>
+
+</body>
+</html>
