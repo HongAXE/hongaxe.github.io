@@ -24,7 +24,7 @@
             padding: 24px;
         }
 
-        /* ── 背景装饰（同个人主页） ── */
+        /* ── 背景装饰 ── */
         .bg-img {
             position: fixed;
             top: 0;
@@ -141,6 +141,54 @@
             transform: scale(1.02);
         }
 
+        /* ── Warma 档案馆专用按钮（红色调） ── */
+        .btn-warma {
+            background: #CA494B;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(202, 73, 75, 0.3);
+        }
+
+        .btn-warma:hover {
+            background: #b03e40;
+            transform: scale(1.02);
+        }
+
+        .btn-warma-outline {
+            background: transparent;
+            color: #CA494B;
+            border: 1px solid rgba(202, 73, 75, 0.4);
+        }
+
+        .btn-warma-outline:hover {
+            background: rgba(202, 73, 75, 0.1);
+            border-color: #CA494B;
+            transform: scale(1.02);
+        }
+
+        /* ── 科外所专用按钮（紫色调） ── */
+        .btn-kgri {
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25);
+        }
+
+        .btn-kgri:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 28px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-kgri-outline {
+            background: transparent;
+            color: #c4b5fd;
+            border: 1.5px solid rgba(167, 139, 250, 0.3);
+        }
+
+        .btn-kgri-outline:hover {
+            background: rgba(167, 139, 250, 0.08);
+            border-color: #a78bfa;
+            transform: scale(1.02);
+        }
+
         /* ── 底部信息 ── */
         .footer-note {
             position: relative;
@@ -158,6 +206,15 @@
 
         .footer-note a:hover {
             text-decoration: underline;
+        }
+
+        /* ── 404 模板容器（默认隐藏，JS 控制显示） ── */
+        .template-content {
+            display: none;
+        }
+
+        .template-content.active {
+            display: block;
         }
 
         /* ── 响应式 ── */
@@ -185,26 +242,108 @@
 
     <div class="bg-img"></div>
 
-    <div class="error-card">
-        <span class="error-icon">🔭</span>
-        <h1 class="error-title">404 · 未找到</h1>
-        <p class="error-sub">
-            似乎探索到了一个不存在的页面……<br>
-            可能是链接有误/内容已被移动。
-        </p>
-
-        <div class="action-group">
-            <a href="/" class="btn btn-primary">🏠 返回首页</a>
-            <a href="/work" class="btn btn-outline">📦 查看项目</a>
+    <!-- ========================================================= -->
+    <!-- 模板 1：通用 404（默认）                                    -->
+    <!-- ========================================================= -->
+    <div id="template-default" class="template-content active">
+        <div class="error-card">
+            <span class="error-icon">🔭</span>
+            <h1 class="error-title">404 · 未找到</h1>
+            <p class="error-sub">
+                似乎探索到了一个不存在的页面……<br>
+                可能是链接有误，或内容已被移动。
+            </p>
+            <div class="action-group">
+                <a href="/" class="btn btn-primary">🏠 返回首页</a>
+                <a href="/work" class="btn btn-outline">📦 查看项目</a>
+            </div>
+        </div>
+        <div class="footer-note">
+            <span>© 2026 HongAX · </span>
+            <a href="/" target="_blank">个人主页</a>
+            <span> · </span>
+            <a href="https://github.com/HongAXE" target="_blank">GitHub</a>
         </div>
     </div>
 
-    <div class="footer-note">
-        <span>© 2026 HongAX · </span>
-        <a href="/" target="_blank">个人主页</a>
-        <span> · </span>
-        <a href="https://github.com/HongAXE" target="_blank">GitHub</a>
+    <!-- ========================================================= -->
+    <!-- 模板 2：Warma 档案馆 404                                    -->
+    <!-- ========================================================= -->
+    <div id="template-warma" class="template-content">
+        <div class="error-card" style="border-color:rgba(202,73,75,0.25);">
+            <span class="error-icon">🔍</span>
+            <h1 class="error-title" style="color:#CA494B;">404 · 未找到</h1>
+            <p class="error-sub" style="color:#b0b3b8;">
+                啊哦，这个页面好像掉进时空缝隙了……<br>
+                可能链接有误，或者内容已被 Warma 藏起来了。
+            </p>
+            <div class="action-group">
+                <a href="/work/1" class="btn btn-warma">🏠 返回档案馆</a>
+                <a href="/work" class="btn btn-warma-outline">📦 全部作品</a>
+                <a href="/" class="btn btn-secondary">🌐 个人主页</a>
+            </div>
+        </div>
+        <div class="footer-note">
+            <span>© 2026 HongAX · </span>
+            <a href="https://github.com/HongAXE" target="_blank">GitHub</a>
+            <span> · </span>
+            <a href="/work/1">Warma档案馆</a>
+        </div>
     </div>
+
+    <!-- ========================================================= -->
+    <!-- 模板 3：科外所 404                                          -->
+    <!-- ========================================================= -->
+    <div id="template-kgri" class="template-content">
+        <div class="error-card" style="border-color:rgba(167,139,250,0.2);">
+            <span class="error-icon">🛸</span>
+            <h1 class="error-title">404 · <span style="background:linear-gradient(135deg,#d8b4fe,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">信号丢失</span></h1>
+            <p class="error-sub" style="color:#b0b0c8;">
+                外星人研究员好像把这条通路藏起来了……<br>
+                可能是坐标偏移，或者 <span style="color:#c4b5fd;font-weight:500;">虫洞</span> 暂时关闭了。
+            </p>
+            <div class="action-group">
+                <a href="/work/3" class="btn btn-kgri">🏠 返回科外所</a>
+                <a href="/work" class="btn btn-kgri-outline">📦 作品列表</a>
+                <a href="/" class="btn btn-secondary">🌐 个人主页</a>
+            </div>
+        </div>
+        <div class="footer-note">
+            <span>© 2026 科外所 · KGRI</span>
+            <span style="color:#3a3a58;margin:0 4px;">·</span>
+            <a href="https://github.com/HongAXE" target="_blank">GitHub</a>
+            <span style="color:#3a3a58;margin:0 4px;">·</span>
+            <a href="/work/3">科高外星人研究所</a>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- JavaScript：根据路径切换模板                                 -->
+    <!-- ========================================================= -->
+    <script>
+        (function() {
+            var path = window.location.pathname;
+
+            // 获取三个模板容器
+            var defaultEl = document.getElementById('template-default');
+            var warmaEl = document.getElementById('template-warma');
+            var kgriEl = document.getElementById('template-kgri');
+
+            // 先全部隐藏
+            defaultEl.classList.remove('active');
+            warmaEl.classList.remove('active');
+            kgriEl.classList.remove('active');
+
+            // 根据路径判断显示哪个
+            if (path.includes('/work/1/')) {
+                warmaEl.classList.add('active');
+            } else if (path.includes('/work/3/')) {
+                kgriEl.classList.add('active');
+            } else {
+                defaultEl.classList.add('active');
+            }
+        })();
+    </script>
 
 </body>
 </html>
