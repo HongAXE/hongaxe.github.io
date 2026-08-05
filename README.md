@@ -71,6 +71,7 @@
 - **访问地址**：  [需魔法](https://notion-next-alpha-seven-77.vercel.app/?theme=fuwari)
 
 ㅤ
+
 > ### Gmeek博客 <sub>**(HongAX-Work-5)**</sub>
 
 我的个人博客，基于 Gmeek 框架与 GitHub Issues 搭建的技术空间。
@@ -78,6 +79,16 @@
 - **技术栈**：Gmeek · HTML/CSS
 - **状态**：✅️ 已发布
 - **访问地址**：  [HongAX's Blog](https://hongaxe.github.io/Blog/)
+
+ㅤ
+
+> ### oshit! <sub>**(HongAX-Work-5)**</sub>
+
+网页小游戏，改自“吃掉小鹿乃”。 [原项目仓库](https://github.com/arcxingye/EatKano) [oshit!仓库](https://github.com/HongAXE/oshit)
+
+- **技术栈**：Gmeek · HTML/CSS
+- **状态**：✅️ 已发布
+- **访问地址**：  [oshit!](https://hongaxe.github.io/oshit/)
 
 ---
 
