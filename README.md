@@ -82,9 +82,10 @@
 
 ㅤ
 
-> ### oshit! <sub>**(HongAX-Work-5)**</sub>
+> ### oshit! <sub>**(HongAX-Work-6)**</sub>
 
-网页小游戏，改自“吃掉小鹿乃”。 [原项目仓库](https://github.com/arcxingye/EatKano) [oshit!仓库](https://github.com/HongAXE/oshit)
+网页小游戏，改自“吃掉小鹿乃”。
+[原项目仓库](https://github.com/arcxingye/EatKano)     [oshit!仓库](https://github.com/HongAXE/oshit)
 
 - **技术栈**：Gmeek · HTML/CSS
 - **状态**：✅️ 已发布
