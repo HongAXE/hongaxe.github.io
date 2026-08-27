@@ -85,6 +85,7 @@
 > ### oshit! <sub>**(HongAX-Work-6)**</sub>
 
 网页小游戏，改自“吃掉小鹿乃”。已上架 [Taptap](https://www.taptap.cn/app/919451)
+
 [原项目仓库](https://github.com/arcxingye/EatKano)     [oshit!仓库](https://github.com/HongAXE/oshit)
 
 - **技术栈**：Gmeek · HTML/CSS
