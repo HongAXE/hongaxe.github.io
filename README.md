@@ -24,7 +24,7 @@
 
 - **技术栈**：HTML/CSS · 响应式设计
 - **状态**：✅ 已发布
-- **访问地址**：  [主站](https://hongaxe.github.io/)    [副站](https://hongax.rth1.xyz/)
+- **访问地址**：  [个人主页](https://hongaxe.github.io/)
 
 ㅤ
 
@@ -35,7 +35,7 @@
 
 - **技术栈**：HTML/CSS · 响应式
 - **状态**：⏳ 开发中
-- **访问地址**：  [主站](https://hongaxe.github.io/work/1)    [副站](https://hongax.rth1.xyz/work/1)
+- **访问地址**：  [Warma 档案馆](https://hongaxe.github.io/work/1)
 
 ㅤ
 
@@ -46,7 +46,7 @@
 
 - **技术栈**：Python · HTML/CSS
 - **状态**：✅ 已发布
-- **访问地址**：  [主站](https://hongaxe.github.io/work/2)    [副站](https://hongax.rth1.xyz/work/2)
+- **访问地址**：  [自动贩卖机](https://hongaxe.github.io/work/2)
 
 ㅤ
 
@@ -57,7 +57,7 @@
 
 - **技术栈**：音游社 · HTML/CSS
 - **状态**：✅ 已发布
-- **访问地址**：  [主站](https://hongaxe.github.io/work/3)    [副站](https://hongax.rth1.xyz/work/3)
+- **访问地址**：  [科外所主页](https://hongaxe.github.io/work/3)
 
 ㅤ
 
