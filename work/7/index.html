@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跳转中 · 科高樱花社</title>
+    <!-- 3秒后自动跳转 -->
+    <meta http-equiv="refresh" content="3; url=https://hongaxe.github.io/sakura/">
+    <style>
+        /* ── 全局重置 & 基础 ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #fdf2f4;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        /* ── 背景装饰（同樱花社主页） ── */
+        .bg-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(255, 183, 197, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(224, 90, 109, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, #fdf2f4 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── 卡片容器 ── */
+        .redirect-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #ffb7c5;
+            border-radius: 20px;
+            padding: 48px 40px 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(224, 90, 109, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .redirect-card:hover {
+            border-color: #e05a6d;
+            box-shadow: 0 12px 48px rgba(224, 90, 109, 0.25);
+        }
+
+        /* ── 头像 / Logo ── */
+        .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            border: 2px solid #ffb7c5;
+            margin: 0 auto 20px;
+            display: block;
+            object-fit: cover;
+            background: #fff;
+        }
+
+        /* ── 标题 ── */
+        .title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #e05a6d;
+            margin-bottom: 8px;
+        }
+
+        .sub {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 28px;
+        }
+
+        /* ── 加载动画 ── */
+        .loader {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #ffe4ea;
+            border-radius: 50%;
+            border-top-color: #e05a6d;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 24px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── 倒计时 ── */
+        .countdown {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .countdown strong {
+            color: #e05a6d;
+            font-weight: 600;
+        }
+
+        /* ── 跳转按钮 ── */
+        .btn {
+            display: inline-block;
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(135deg, #e05a6d, #c94b5b);
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 4px 16px rgba(224, 90, 109, 0.25);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(224, 90, 109, 0.35);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ── 底部提示 ── */
+        .footer-note {
+            position: relative;
+            z-index: 1;
+            margin-top: 24px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .footer-note a {
+            color: #e05a6d;
+            text-decoration: none;
+        }
+
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── 响应式 ── */
+        @media (max-width: 420px) {
+            .redirect-card {
+                padding: 32px 20px 28px;
+            }
+
+            .title {
+                font-size: 18px;
+            }
+
+            .avatar {
+                width: 56px;
+                height: 56px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-img"></div>
+
+    <!-- 跳转卡片 -->
+    <div class="redirect-card">
+        <!-- 社徽 -->
+        <img class="avatar" src="https://hongaxe.github.io/sakura/static/image/sakura.png" alt="科高樱花社">
+
+        <h1 class="title">正在前往科高樱花社</h1>
+        <p class="sub">深圳科学高中 · 正统 ACGN 社团</p>
+
+        <!-- 加载动画 -->
+        <div class="loader"></div>
+
+        <!-- 倒计时显示 -->
+        <p class="countdown">
+            将在 <strong id="seconds">3</strong> 秒后自动跳转
+        </p>
+
+        <!-- 手动跳转按钮 -->
+        <a href="https://hongaxe.github.io/sakura/" class="btn">立即跳转 →</a>
+    </div>
+
+    <!-- 页脚信息 -->
+    <div class="footer-note">
+        <span>© 2026 HongAX · </span>
+        <a href="/" target="_blank">个人主页</a>
+        <span> · </span>
+        <a href="https://github.com/HongAXE" target="_blank">GitHub</a>
+    </div>
+
+    <!-- 倒计时脚本 -->
+    <script>
+        (function() {
+            var secondsEl = document.getElementById('seconds');
+            var count = 3;
+
+            var timer = setInterval(function() {
+                count -= 1;
+                if (count <= 0) {
+                    clearInterval(timer);
+                    secondsEl.textContent = '0';
+                } else {
+                    secondsEl.textContent = count;
+                }
+            }, 1000);
+        })();
+    </script>
+
+</body>
+</html>
