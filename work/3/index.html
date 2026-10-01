@@ -80,7 +80,7 @@
             z-index: 1;
         }
 
-        /* ===== 顶部导航（极简锚点） ===== */
+        /* ===== 顶部导航 ===== */
         header {
             padding: 14px 36px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -132,7 +132,6 @@
             border-bottom-color: #a78bfa;
         }
 
-        /* 去除 active 状态的下划线 */
         .nav-links a.active {
             color: #c4b5fd;
             border-bottom-color: transparent;
@@ -439,62 +438,127 @@
             font-weight: 500;
         }
 
-        /* ===== 加入区 ===== */
-        .join-box {
-            text-align: center;
-            padding: 36px 20px 32px;
-            margin-top: 32px;
-            border-radius: 24px;
-            background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.06), transparent 70%);
-            border: 1px solid rgba(167, 139, 250, 0.06);
+        /* ===== 相关链接 & 加入 ===== */
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            max-width: 720px;
+            margin: 0 auto;
         }
 
-        .join-box h2 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #ececf5;
-        }
-
-        .join-box p {
-            color: #b0b0c8;
-            font-size: 15.5px;
-            max-width: 520px;
-            margin: 0 auto 24px;
-            line-height: 1.7;
-        }
-
-        .join-buttons {
+        .link-card {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .btn-qq {
-            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 11px 34px;
-            border-radius: 40px;
-            background: linear-gradient(135deg, #12b7f5, #0a8fd8);
-            color: #fff;
-            font-size: 15px;
-            font-weight: 600;
+            gap: 16px;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
             text-decoration: none;
+            color: #e4e4ee;
             transition: all 0.30s ease;
-            box-shadow: 0 4px 18px rgba(18, 183, 245, 0.25);
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-qq:hover {
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 8px 30px rgba(18, 183, 245, 0.40);
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.045);
+            border-color: rgba(167, 139, 250, 0.20);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
         }
 
-        .join-box .hint {
-            margin-top: 16px;
-            font-size: 13px;
-            color: #6a6a88;
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: #a78bfa;
+            transform: scaleY(0);
+            transition: transform 0.3s;
+            transform-origin: top;
+        }
+
+        .link-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .link-icon {
+            font-size: 2rem;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(167, 139, 250, 0.10);
+            border-radius: 14px;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .link-card:hover .link-icon {
+            background: rgba(167, 139, 250, 0.20);
+            transform: scale(1.08);
+        }
+
+        .link-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .link-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #ececf5;
+            margin-bottom: 4px;
+        }
+
+        .link-desc {
+            font-size: 0.82rem;
+            color: #8a8aa8;
+            line-height: 1.4;
+        }
+
+        .link-arrow {
+            color: #a78bfa;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .link-card:hover .link-arrow {
+            transform: translateX(4px);
+        }
+
+        /* 高亮卡片（QQ群） */
+        .link-card.highlight {
+            background: rgba(18, 183, 245, 0.04);
+            border-color: rgba(18, 183, 245, 0.15);
+        }
+
+        .link-card.highlight:hover {
+            background: rgba(18, 183, 245, 0.08);
+            border-color: rgba(18, 183, 245, 0.30);
+            box-shadow: 0 10px 32px rgba(18, 183, 245, 0.15);
+        }
+
+        .link-card.highlight .link-icon {
+            background: rgba(18, 183, 245, 0.10);
+        }
+
+        .link-card.highlight:hover .link-icon {
+            background: rgba(18, 183, 245, 0.20);
+        }
+
+        .link-card.highlight .link-arrow {
+            color: #12b7f5;
+        }
+
+        .link-card.highlight::before {
+            background: #12b7f5;
         }
 
         /* ===== 页脚 ===== */
@@ -578,14 +642,6 @@
                 color: #6a6a88;
             }
 
-            .join-box {
-                padding: 28px 14px 24px;
-            }
-
-            .join-box h2 {
-                font-size: 22px;
-            }
-
             .section {
                 margin-top: 40px;
             }
@@ -593,6 +649,10 @@
             .section-title {
                 font-size: 21px;
                 margin-bottom: 24px;
+            }
+
+            .link-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -627,9 +687,8 @@
                 font-size: 19px;
             }
 
-            .btn-qq {
-                padding: 10px 24px;
-                font-size: 14px;
+            .link-card {
+                padding: 16px 18px;
             }
         }
 
@@ -665,7 +724,7 @@
             <a href="#about">关于</a>
             <a href="#party">音趴</a>
             <a href="#news">动态</a>
-            <a href="#join">加入</a>
+            <a href="#links">加入</a>
         </div>
     </header>
 
@@ -680,7 +739,7 @@
                 <strong>KGRI</strong> —— 由音游人组成的轻松社群。<br />
             </p>
             <div class="hero-actions">
-                <a href="#join" class="btn btn-primary">加入我们</a>
+                <a href="#links" class="btn btn-primary">加入我们</a>
                 <a href="#about" class="btn btn-outline">了解更多</a>
             </div>
         </section>
@@ -773,21 +832,38 @@
             </div>
         </section>
 
-        <!-- ===== 加入 ===== -->
-        <section id="join" class="join-box">
-            <h2>加入科外所</h2>
-            <p>
-                无论是科高在读，还是校外音游爱好者；<br />
-                只要怀揣对音游的热爱，我们都欢迎你。
-            </p>
-            <div class="join-buttons">
-                <a href="https://qm.qq.com/q/yzEoQNQly2" target="_blank" class="btn-qq">
-                    💬 加入QQ群
+        <!-- ===== 相关链接 & 加入 ===== -->
+        <section id="links" class="section">
+            <h2 class="section-title">加入 <span class="accent">科外所</span></h2>
+            <div class="link-grid">
+                <!-- 加入 QQ 群（高亮） -->
+                <a href="https://qm.qq.com/q/yzEoQNQly2" target="_blank" rel="noopener" class="link-card highlight">
+                    <div class="link-icon">💬</div>
+                    <div class="link-info">
+                        <div class="link-name">加入 QQ 群</div>
+                        <div class="link-desc">群号：748447914 · 欢迎所有音游爱好者</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </a>
+                <!-- 科外所贴吧 -->
+                <a href="https://tieba.baidu.com/f?kw=科外所高外星人研究所" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-icon">📌</div>
+                    <div class="link-info">
+                        <div class="link-name">科外所贴吧</div>
+                        <div class="link-desc">科高外星人研究所吧 · 交流与讨论</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </a>
+                <!-- 樱花社友情链接 -->
+                <a href="https://hongaxe.github.io/sakura/" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-icon">🌸</div>
+                    <div class="link-info">
+                        <div class="link-name">樱花社</div>
+                        <div class="link-desc">科高樱花社 · ACGN 同好会 · 友情站点</div>
+                    </div>
+                    <div class="link-arrow">→</div>
                 </a>
             </div>
-            <div style="margin-top:14px;text-align:center;font-size:13px;color:#5a5a78;">
-            <span>QQ群号：748447914</span>
-        </div>
         </section>
 
         <!-- ===== 页脚 ===== -->
