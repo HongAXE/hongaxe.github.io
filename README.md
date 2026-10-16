@@ -111,10 +111,11 @@
 | 平台 | 链接 | 说明 |
 | :--- | :---: | :--- |
 | **Bilibili** | [HongAX 的频道](https://m.bilibili.com/space/3493280455067988) | 只有一条视频 |
-| **GitHub** | [@HongAXE](https://github.com/HongAXE) | 开发中… |
+| **GitHub** | [@HongAXE](https://github.com/HongAXE) | 求star |
 | **QQ** | `3607321141` | 欢迎找我聊天 |
 | **邮箱** | `hong_ax@outlook.com` | 虽然根本不看 |
-| **公众号** | [HongAX](https://mp.weixin.qq.com/s/-DsrOQ9N3rAjIZiqULrp4w) | 自娱自乐而已 |
+| **公众号** | [HongAX 的公众号](https://mp.weixin.qq.com/s/-DsrOQ9N3rAjIZiqULrp4w) | 自娱自乐而已 |
+| **贴吧** | [HongAXE 的贴吧](https://tieba.baidu.com/home/main?id=tb.1.224f1403.ZPe5LP_UIUeSD5NVLl6Zgg%3Ft%3D&fr=pb) | 基本不上线 |
 ---
 
 ## 查询成分
