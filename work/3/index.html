@@ -634,6 +634,23 @@
             color: #c65353;
         }
 
+        .visit-counter {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #4a4440;
+            letter-spacing: 0.05em;
+            font-family: "Songti SC", "STSong", serif;
+        }
+
+        .visit-counter span {
+            color: #8c8279;
+            transition: color 0.2s;
+        }
+
+        .visit-counter:hover span {
+            color: #c65353;
+        }
+
         /* ===== 响应式 ===== */
         @media (max-width: 768px) {
             header {
@@ -907,7 +924,12 @@
         <div>© 2026 科外所 · KGRI</div>
         <div>由 <a href="https://github.com/HongAXE/hongaxe.github.io" target="_blank">GitHub</a> 强力驱动</div>
         <div>由 <a href="/">HongAX</a> 开发</div>
+        <div class="visit-counter">
+            <span id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv">…</span> 次</span>
+        </div>
     </footer>
+    
+    <script defer src="https://events.vercount.one/js"></script>
 
 </body>
 </html>
