@@ -3,6 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="科外所 (KGRI) —— 深圳科学高中音游交流社，欢迎所有热爱音游的科高人与非科高人。" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta property="og:title" content="科外所 · KGRI" />
+    <meta property="og:description" content="深圳科学高中音游交流社 —— 欢迎所有音游爱好者的加入。" />
+    <meta property="og:image" content="https://hongaxe.github.io/sakura/static/logo/748447914.jpg" />
+    <meta property="og:type" content="website" />
     <title>科外所 · KGRI</title>
     <style>
         /* ===== 全局重置 & 基础 ===== */
@@ -28,7 +34,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== 背景装饰（保留星空 + 融入墨色/朱红底光） ===== */
+        /* ===== 背景装饰 ===== */
         .bg-canvas {
             position: fixed;
             top: 0;
@@ -77,10 +83,8 @@
         /* ===== 顶部导航 ===== */
         header {
             padding: 18px 40px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            background: rgba(13, 13, 18, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: #0d0d12; /* 移除毛玻璃，使用纯色 */
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -176,14 +180,13 @@
             color: #c65353;
         }
 
-        /* 标题下装饰线 */
         .section-title::after {
             content: '';
             display: block;
             width: 40px;
             height: 2px;
             margin: 12px auto 0;
-            background: linear-gradient(90deg, transparent, #c65353, transparent);
+            background: #c65353; /* 移除渐变，使用纯色 */
             opacity: 0.6;
         }
 
@@ -208,7 +211,6 @@
             position: relative;
         }
 
-        /* 标签前后的装饰 */
         .hero-tag::before,
         .hero-tag::after {
             content: "·";
@@ -225,10 +227,8 @@
             letter-spacing: 0.1em;
             margin-bottom: 16px;
             color: #f0f6fc;
-            text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
         }
 
-        /* 标题前的小装饰（模拟参考中的樱花印记，换成六边形/菱形） */
         .hero h1::before {
             content: "◇";
             display: block;
@@ -259,21 +259,21 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 12px;
+            gap: 16px;
         }
 
-        /* ===== 按钮（摒弃大圆角和发光，改用细边框和微阴影） ===== */
+        /* ===== 按钮（改为硬阴影和直角/极小圆角） ===== */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
             padding: 10px 28px;
-            border-radius: 4px;
+            border-radius: 2px;
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.25s ease;
+            transition: all 0.15s ease;
             border: 1px solid transparent;
             cursor: pointer;
             font-family: inherit;
@@ -283,24 +283,39 @@
         .btn-primary {
             background: #c65353;
             color: #fff;
-            box-shadow: 0 2px 8px rgba(198, 83, 83, 0.2);
+            border-color: #8f3737;
+            box-shadow: 3px 3px 0px #000; /* 硬阴影 */
         }
 
         .btn-primary:hover {
             background: #b04848;
-            box-shadow: 0 4px 12px rgba(198, 83, 83, 0.3);
+            transform: translate(1px, 1px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .btn-primary:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px 0px #000;
         }
 
         .btn-outline {
             background: transparent;
             color: #d4cfc9;
             border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 3px 3px 0px #000;
         }
 
         .btn-outline:hover {
             border-color: #c65353;
             color: #c65353;
             background: rgba(198, 83, 83, 0.05);
+            transform: translate(1px, 1px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .btn-outline:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px 0px #000;
         }
 
         /* ===== 信条卡片 ===== */
@@ -312,9 +327,9 @@
 
         .card {
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-left: 3px solid #c65353; /* 朱红左侧高亮线 */
-            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 3px solid #c65353;
+            border-radius: 0px; /* 去除圆角 */
             padding: 28px 24px;
             transition: all 0.3s ease;
             display: flex;
@@ -323,7 +338,7 @@
 
         .card:hover {
             background: rgba(255, 255, 255, 0.02);
-            border-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.15);
             border-left-color: #d46a6a;
         }
 
@@ -343,6 +358,11 @@
             line-height: 1.9;
             flex: 1;
             letter-spacing: 0.02em;
+            margin-bottom: 12px;
+        }
+
+        .card p:last-child {
+            margin-bottom: 0;
         }
 
         .card .signature {
@@ -351,15 +371,15 @@
             color: #6b635d;
             font-size: 13px;
             font-family: "Songti SC", serif;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
             padding-top: 12px;
         }
 
         /* ===== 音趴专区 ===== */
         .party-box {
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0px;
             padding: 36px 32px;
             text-align: center;
             max-width: 680px;
@@ -367,19 +387,18 @@
             position: relative;
         }
 
-        /* 四角微小的装饰点 */
+        /* 四角装饰改为方形 */
         .party-box::before,
         .party-box::after {
             content: "";
             position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
+            width: 4px;
+            height: 4px;
             background: #c65353;
-            opacity: 0.4;
+            opacity: 0.6;
         }
-        .party-box::before { top: 12px; left: 12px; }
-        .party-box::after { bottom: 12px; right: 12px; }
+        .party-box::before { top: 8px; left: 8px; }
+        .party-box::after { bottom: 8px; right: 8px; }
 
         .party-box .label {
             font-family: "Songti SC", "STSong", serif;
@@ -409,9 +428,9 @@
             display: inline-block;
             margin-top: 18px;
             padding: 4px 14px;
-            border-radius: 99px;
-            border: 1px solid rgba(198, 83, 83, 0.25);
-            background: rgba(198, 83, 83, 0.08);
+            border-radius: 0px; /* 去除圆角 */
+            border: 1px solid rgba(198, 83, 83, 0.4);
+            background: rgba(198, 83, 83, 0.1);
             font-size: 12px;
             color: #c65353;
             letter-spacing: 0.08em;
@@ -428,9 +447,9 @@
 
         .game-tag {
             padding: 4px 12px;
-            border-radius: 2px;
+            border-radius: 0px; /* 去除圆角 */
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 13px;
             font-weight: 500;
             color: #8c8279;
@@ -440,7 +459,7 @@
         .game-tag:hover {
             border-color: #c65353;
             color: #c65353;
-            background: rgba(198, 83, 83, 0.05);
+            background: rgba(198, 83, 83, 0.1);
         }
 
         /* ===== 动态日志 ===== */
@@ -450,7 +469,7 @@
             gap: 0;
             max-width: 680px;
             margin: 0 auto;
-            border-left: 1px solid rgba(255, 255, 255, 0.06);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
             padding-left: 20px;
         }
 
@@ -458,23 +477,23 @@
             display: flex;
             gap: 20px;
             padding: 16px 0;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.04);
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
             transition: background 0.2s;
             align-items: flex-start;
             position: relative;
         }
 
-        /* 时间轴节点 */
+        /* 时间轴节点改为菱形 */
         .log-item::before {
             content: "";
             position: absolute;
             left: -24px;
             top: 22px;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
+            width: 6px;
+            height: 6px;
             background: #0d0d12;
-            border: 1.5px solid rgba(198, 83, 83, 0.5);
+            border: 1.5px solid rgba(198, 83, 83, 0.6);
+            transform: rotate(45deg);
         }
 
         .log-item:last-child {
@@ -518,16 +537,16 @@
             gap: 16px;
             padding: 16px 20px;
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0px;
             text-decoration: none;
             color: #d4cfc9;
             transition: all 0.25s ease;
         }
 
         .link-card:hover {
-            background: rgba(255, 255, 255, 0.02);
-            border-color: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.2);
             transform: translateX(2px);
         }
 
@@ -538,10 +557,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0px;
             flex-shrink: 0;
             color: #8c8279;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .link-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .link-info {
@@ -574,7 +602,6 @@
             color: #c65353;
         }
 
-        /* 高亮卡片（QQ群） */
         .link-card.highlight {
             border-left: 3px solid #c65353;
         }
@@ -582,6 +609,7 @@
         .link-card.highlight .link-icon {
             background: rgba(198, 83, 83, 0.1);
             color: #c65353;
+            border-color: rgba(198, 83, 83, 0.3);
         }
 
         /* ===== 页脚 ===== */
@@ -590,9 +618,10 @@
             padding: 28px 20px;
             font-size: 13px;
             color: #4a4440;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            background: rgba(13, 13, 18, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: #0d0d12;
             letter-spacing: 0.05em;
+            line-height: 1.8;
         }
 
         footer a {
@@ -668,6 +697,12 @@
             .btn {
                 padding: 8px 20px;
                 font-size: 13px;
+                width: 100%;
+            }
+
+            .hero-actions {
+                width: 100%;
+                flex-direction: column;
             }
 
             .card {
@@ -687,7 +722,7 @@
 
         ::-webkit-scrollbar-thumb {
             background: #2a2624;
-            border-radius: 8px;
+            border-radius: 0px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
@@ -719,7 +754,7 @@
             <div class="hero-tag">深圳科学高中 · 音游交流社</div>
             <h1>科高外星人研究所</h1>
             <p class="sub">
-                <strong>KGRI</strong> —— 由音游人组成的轻松社群。<br />
+                <strong>KGRI</strong> —— 由音游人组成的轻松社群。
             </p>
             <div class="hero-actions">
                 <a href="#links" class="btn btn-primary">加入我们</a>
@@ -733,10 +768,10 @@
             <div class="grid-2">
                 <div class="card">
                     <span class="label">简介</span>
-                    <p>这里是科外所(KG Research Institude，即KGRI)，是由几个音游人创建的音游交流群。<br /><br />
-                    这里是音游的殿堂，在这里，我们不攀比实力，不拘泥于出身，不在意入坑时间，最重要的只有对音游的那一份简单的初心。<br /><br />
-                    是偶然被精美的插图吸引的入坑也好，或者说是长期以来的热爱也好，只要是在这里，我们的主旋律就是音游。<br /><br />
-                    欢迎所有科高人的加入，也欢迎所有非科高人的加入！</p>
+                    <p>这里是科外所(KG Research Institude，即KGRI)，是由几个音游人创建的音游交流群。</p>
+                    <p>这里是音游的殿堂，在这里，我们不攀比实力，不拘泥于出身，不在意入坑时间，最重要的只有对音游的那一份简单的初心。</p>
+                    <p>是偶然被精美的插图吸引的入坑也好，或者说是长期以来的热爱也好，只要是在这里，我们的主旋律就是音游。</p>
+                    <p>欢迎所有科高人的加入，也欢迎所有非科高人的加入！</p>
                     <div class="signature">
                         <div>kiyasu</div>
                         <div>2022-03-18</div>
@@ -780,9 +815,18 @@
         <section id="news" class="section">
             <h2 class="section-title">社团 <span class="accent">动态</span></h2>
             <div class="log-list">
+                <!-- 修正了时间线倒序问题 -->
+                <div class="log-item">
+                    <span class="log-time">2026-08-16</span>
+                    <span class="log-content">召开 <span class="hl">第三次音趴</span></span>
+                </div>
                 <div class="log-item">
                     <span class="log-time">2025-10-18</span>
                     <span class="log-content">第二次 <span class="hl">高二研学音趴</span></span>
+                </div>
+                <div class="log-item">
+                    <span class="log-time">2024-10-20</span>
+                    <span class="log-content">第三次 <span class="hl">高二研学音趴</span></span>
                 </div>
                 <div class="log-item">
                     <span class="log-time">2024-10-19</span>
@@ -821,25 +865,33 @@
             <div class="link-grid">
                 <!-- 加入 QQ 群（高亮） -->
                 <a href="https://qm.qq.com/q/yzEoQNQly2" target="_blank" rel="noopener" class="link-card highlight">
-                    <div class="link-icon">💬</div>
+                    <div class="link-icon">
+                        <img src="https://hongaxe.github.io/sakura/static/logo/748447914.jpg" alt="QQ群" loading="lazy">
+                    </div>
                     <div class="link-info">
                         <div class="link-name">加入 QQ 群</div>
                         <div class="link-desc">群号：748447914 · 欢迎所有音游爱好者</div>
                     </div>
                     <div class="link-arrow">→</div>
                 </a>
+                
                 <!-- 科外所贴吧 -->
                 <a href="https://tieba.baidu.com/f?kw=科外所高外星人研究所" target="_blank" rel="noopener" class="link-card">
-                    <div class="link-icon">📌</div>
+                    <div class="link-icon">
+                        <img src="https://hongaxe.github.io/sakura/static/logo/tieba.jpg" alt="贴吧" loading="lazy">
+                    </div>
                     <div class="link-info">
                         <div class="link-name">科外所贴吧</div>
                         <div class="link-desc">科高外星人研究所吧 · 交流与讨论</div>
                     </div>
                     <div class="link-arrow">→</div>
                 </a>
+                
                 <!-- 樱花社友情链接 -->
                 <a href="https://hongaxe.github.io/sakura/" target="_blank" rel="noopener" class="link-card">
-                    <div class="link-icon">🌸</div>
+                    <div class="link-icon">
+                        <img src="https://hongaxe.github.io/sakura/static/logo/sakura.png" alt="樱花社" loading="lazy">
+                    </div>
                     <div class="link-info">
                         <div class="link-name">樱花社</div>
                         <div class="link-desc">科高樱花社 · ACGN 同好会 · 友情站点</div>
@@ -848,15 +900,14 @@
                 </a>
             </div>
         </section>
-
-        <!-- ===== 页脚 ===== -->
-        <div style="margin-top:48px;text-align:center;font-size:13px;color:#4a4440;letter-spacing:0.05em;">
-            <span>© 2026 科外所 · KGRI</span><br />
-            <span>由 <a href="https://github.com/HongAXE/hongaxe.github.io" target="_blank">GitHub</a> 强力驱动</span><br />
-            <span>由 <a href="/">HongAX</a> 开发
-        </div>
-
     </main>
+
+    <!-- ===== 页脚（移出 main，使用 footer 标签） ===== -->
+    <footer>
+        <div>© 2026 科外所 · KGRI</div>
+        <div>由 <a href="https://github.com/HongAXE/hongaxe.github.io" target="_blank">GitHub</a> 强力驱动</div>
+        <div>由 <a href="/">HongAX</a> 开发</div>
+    </footer>
 
 </body>
 </html>
