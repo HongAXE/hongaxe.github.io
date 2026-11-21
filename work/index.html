@@ -4,674 +4,151 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>项目清单 - HongAX个人主页</title>
+    <!-- 复用根目录的样式表 -->
+    <link rel="stylesheet" href="../style.css">
     <style>
-        /* ── 全局重置 & 基础 ── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #0d1117;
-            color: #c9d1d9;
-            min-height: 100vh;
-            display: flex;
+        /* 针对详情页的微调补充 */
+        .work-detail-list .release-item {
             flex-direction: column;
-        }
-
-        /* ── 背景装饰 ── */
-        .bg-img {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(22, 63, 118, 0.15) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(56, 139, 253, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 100%, rgba(13, 17, 23, 1) 0%, transparent 40%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ── 布局容器 ── */
-        header,
-        main,
-        footer {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ── 头部 ── */
-        header {
-            padding: 20px 40px;
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            color: #f0f6fc;
-            border-bottom: 1px solid #21262d;
-            background: rgba(13, 17, 23, 0.85);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
             gap: 12px;
+            padding: 24px;
         }
-
-        header a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        header a:hover {
-            color: #58a6ff;
-        }
-
-        header .header-icon {
-            font-size: 22px;
-            color: #58a6ff;
-        }
-
-        /* ── 主内容 ── */
-        main {
-            flex: 1;
-            max-width: 960px;
+        .work-detail-list .release-left {
+            flex: unset;
             width: 100%;
-            margin: 0 auto;
-            padding: 40px 24px 60px;
-        }
-
-        /* 标题区 */
-        .page-title {
-            margin-bottom: 40px;
-        }
-
-        .page-title h1 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #f0f6fc;
-            letter-spacing: -0.5px;
-            margin-bottom: 6px;
-        }
-
-        .page-title .sub {
-            font-size: 16px;
-            color: #8b949e;
-            font-weight: 400;
-        }
-
-        /* ── Release 区域（通用卡片区） ── */
-        .release-section {
-            margin-top: 40px;
-        }
-
-        .release-section h2 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #f0f6fc;
-            border-bottom: 1px solid #21262d;
-            padding-bottom: 16px;
-            margin-bottom: 28px;
             display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* 作品标题特殊处理 */
-        .release-section h2.work-header {
             justify-content: space-between;
-            gap: 0;
+            align-items: baseline;
+            border-bottom: 1px dashed #30363d;
+            padding-bottom: 12px;
+            margin-bottom: 4px;
         }
-
-        .release-section h2.work-header a {
-            font-size: 16px;
-            font-weight: 400;
-            color: #58a6ff;
-            text-decoration: none;
-            transition: color 0.2s;
+        .work-detail-list .release-left .tag {
+            font-size: 18px;
         }
-
-        .release-section h2.work-header a:hover {
-            color: #79c0ff;
-            text-decoration: underline;
-        }
-
-        /* ── 信息条目（复用发布卡片样式） ── */
-        .release-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .release-item {
-            display: flex;
-            gap: 20px;
-            padding: 18px 20px 18px 24px;
-            border-radius: 8px;
-            background: transparent;
-            transition: background 0.2s ease;
-            border-left: 3px solid transparent;
-            align-items: flex-start;
-        }
-
-        .release-item:hover {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        /* 左侧：标签 */
-        .release-left {
-            flex: 0 0 180px;
-            min-width: 140px;
-            padding-top: 2px;
-            font-weight: 500;
-            color: #f0f6fc;
-        }
-
-        .release-left .tag {
-            font-size: 16px;
-            font-weight: 600;
-            color: #f0f6fc;
-            letter-spacing: -0.3px;
-            font-family: "SF Mono", "JetBrains Mono", "Fira Code", monospace;
-        }
-
-        .release-left .tag a {
-            color: #f0f6fc;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .release-left .tag a:hover {
-            color: #58a6ff;
-        }
-
-        /* 右侧：内容 */
-        .release-right {
-            flex: 1;
-            min-width: 0;
-            padding-top: 2px;
+        .work-detail-list .release-right {
+            padding-right: 0;
             font-size: 15px;
-            line-height: 1.6;
-            color: #c9d1d9;
-            word-break: break-word;
         }
-
-        .release-right .label {
-            display: inline-block;
-            font-size: 12px;
-            font-weight: 500;
-            padding: 0 8px;
-            border-radius: 4px;
-            background: rgba(56, 139, 253, 0.15);
-            color: #58a6ff;
-            margin-right: 4px;
-        }
-
-        .release-right .label.green {
-            background: rgba(35, 134, 54, 0.2);
-            color: #3fb950;
-        }
-
-        .release-right .label.orange {
-            background: rgba(219, 109, 40, 0.2);
-            color: #d29922;
-        }
-
-        .release-right .label.purple {
-            background: rgba(188, 65, 217, 0.2);
-            color: #bc4dd9;
-        }
-
-        .release-right .changelog {
-            margin-top: 8px;
-            padding-left: 18px;
-            font-size: 14px;
-            color: #8b949e;
-            list-style: none;
-        }
-
-        .release-right .changelog li {
-            position: relative;
-            padding: 1px 0;
-            line-height: 1.5;
-        }
-
-        .release-right .changelog li::before {
-            content: "•";
-            position: absolute;
-            left: -14px;
-            color: #58a6ff;
-            font-weight: 700;
-        }
-
-        .release-right .changelog li .emoji {
-            margin-right: 4px;
-        }
-
-        /* ── 社交链接 ── */
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 2px 12px 2px 8px;
-            border: 1px solid #30363d;
-            border-radius: 20px;
-            color: #58a6ff;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            margin: 0 6px 6px 0;
-            background: transparent;
-        }
-
-        .social-link:hover {
-            background: rgba(56, 139, 253, 0.08);
-            border-color: #58a6ff;
-            color: #79c0ff;
-        }
-
-        .social-link .sl-icon {
-            font-size: 16px;
-        }
-
-        /* ── 作品卡片中的标签 ── */
-        .work-tag {
-            display: inline-block;
-            font-size: 12px;
-            padding: 1px 10px;
-            border-radius: 12px;
-            background: rgba(56, 139, 253, 0.12);
-            color: #58a6ff;
-            margin-right: 4px;
-        }
-
-        .work-tag.ready {
-            background: rgba(35, 134, 54, 0.15);
-            color: #3fb950;
-        }
-
-        .work-tag.dev {
-            background: rgba(219, 109, 40, 0.15);
-            color: #d29922;
-        }
-
-        /* ── 头像 ── */
-        .avatar-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 2px solid #30363d;
-            object-fit: cover;
-        }
-
-        /* ── 分割线 ── */
-        .release-divider {
-            height: 1px;
-            background: linear-gradient(90deg, #21262d, transparent);
-            margin: 4px 0 4px 24px;
-        }
-
-        .release-item:last-child .release-divider {
-            display: none;
-        }
-
-        /* ── 页脚 ── */
-        footer {
-            text-align: center;
-            padding: 24px 20px;
-            font-size: 14px;
-            color: #484f58;
-            border-top: 1px solid #21262d;
-            background: rgba(13, 17, 23, 0.7);
-            backdrop-filter: blur(4px);
-        }
-
-        footer a {
-            color: #58a6ff;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        footer a:hover {
-            color: #79c0ff;
-            text-decoration: underline;
-        }
-
-        /* ── 响应式 ── */
-        @media (max-width: 700px) {
-            header {
-                padding: 14px 20px;
-                font-size: 15px;
-            }
-
-            main {
-                padding: 24px 16px 40px;
-            }
-
-            .page-title h1 {
-                font-size: 24px;
-            }
-
-            .release-item {
-                flex-direction: column;
-                gap: 6px;
-                padding: 16px 16px 16px 18px;
-            }
-
-            .release-left {
-                flex: unset;
-                width: 100%;
-                min-width: unset;
-            }
-
-            .release-left .tag {
-                font-size: 14px;
-            }
-
-            .release-right {
-                font-size: 14px;
-            }
-
-            .release-right .changelog {
-                font-size: 13px;
-                padding-left: 16px;
-            }
-
-            .release-divider {
-                margin-left: 16px;
-            }
-
-            .release-section h2 {
-                font-size: 20px;
-                flex-wrap: wrap;
-            }
-
-            .release-section h2.work-header {
-                flex-wrap: wrap;
-                gap: 6px 0;
-            }
-
-            .social-link {
-                font-size: 13px;
-                padding: 2px 10px 2px 6px;
-            }
-
-            .avatar-img {
-                width: 64px;
-                height: 64px;
-            }
-        }
-
-        @media (max-width: 420px) {
-            header {
-                font-size: 13px;
-                padding: 10px 14px;
-                gap: 8px;
-            }
-
-            header .header-icon {
-                font-size: 18px;
-            }
-
-            .page-title h1 {
-                font-size: 20px;
-            }
-
-            .release-item {
-                padding: 12px 12px 12px 14px;
-            }
-
-            .release-left .tag {
-                font-size: 13px;
-            }
-
-            .avatar-img {
-                width: 56px;
-                height: 56px;
-            }
-        }
-
-        /* ── 滚动条美化 ── */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0d1117;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #30363d;
-            border-radius: 8px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #484f58;
+        .work-detail-list .release-item:hover {
+            box-shadow: inset 4px 0 0 #58a6ff;
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-img"></div>
-
-    <!-- 头部：点击标题跳转首页 -->
     <header>
         <span class="header-icon">⬡</span>
-        <a href="/">HongAX个人主页</a>
+        <a href="../">HongAX个人主页</a>
     </header>
 
     <main>
-        <!-- 标题 -->
         <div class="page-title">
-            <h1>所有项目</h1>
+            <h1>项目档案馆</h1>
             <p class="sub">HongAX 的项目与实验档案</p>
         </div>
 
-        <!-- ─── 项目列表 ─── -->
         <section class="release-section">
-            <!-- 标题旁增加“返回首页”链接 -->
             <h2 class="work-header">
-                <span>📦 项目档案馆</span>
-                <a href="/">← 返回首页</a>
+                <span>所有项目</span>
+                <a href="../">← 返回首页</a>
             </h2>
 
-            <div class="release-list">
-
-                <!-- 项目 0：个人主页 -->
-                <div class="release-item">
-                    <div class="release-left">
-                        <span class="tag">个人主页</span>
-                        <div style="color:#6a6a80; font-size:12px; margin-top:2px; font-weight:400;">HongAX-Work-0</div>
-                    </div>
-                    <div class="release-right">
-                        <div>
-                            <span class="label green">✓ 已发布</span>
-                            <span class="work-tag ready">HTML/CSS</span>
-                            <span class="work-tag ready">响应式</span>
-                            <span class="work-tag ready">热铁盒托管</span>
-                        </div>
-                        <div style="margin-top:6px;">
-                            当前网站 —— 一个简洁、暗色风格的个人主页，用于展示信息、社交链接与作品。
-                        </div>
-                        <div style="margin-top:8px;font-size:14px;display:flex;flex-wrap:wrap;gap:4px 16px;">
-                            <a href="/" style="color:#58a6ff;text-decoration:none;">🔗 访问网站 →</a>
-                        </div>
-                    </div>
-                    <div class="release-divider"></div>
-                </div>
-
-                <!-- 项目 2：自动贩卖机 -->
-                <div class="release-item">
-                    <div class="release-left">
-                        <span class="tag">自动贩卖机</span>
-                        <div style="color:#6a6a80; font-size:12px; margin-top:2px; font-weight:400;">HongAX-Work-2</div>
-                    </div>
-                    <div class="release-right">
-                        <div>
-                            <span class="label green">✓ 已发布</span>
-                            <span class="work-tag ready">Python</span>
-                            <span class="work-tag ready">CLI</span>
-                        </div>
-                        <div style="margin-top:6px;">
-                            一个基于 Python 的控制台自动贩卖机程序，支持顾客模式、管理员模式、商品浏览与购买。
-                        </div>
-                        <div style="margin-top:8px;font-size:14px;">
-                            <a href="/work/2" style="color:#58a6ff;text-decoration:none;">查看详情 →</a>
-                        </div>
-                    </div>
-                    <div class="release-divider"></div>
-                </div>
-                
-                <!-- 项目 3：科外所主页 -->
-                <div class="release-item">
-                    <div class="release-left">
-                        <span class="tag">科外所主页</span>
-                        <div style="color:#6a6a80; font-size:12px; margin-top:2px; font-weight:400;">HongAX-Work-3</div>
-                    </div>
-                    <div class="release-right">
-                        <div>
-                            <span class="label green">✓ 已发布</span>
-                            <span class="work-tag ready">音游社</span>
-                            <span class="work-tag ready">响应式</span>
-                        </div>
-                        <div style="margin-top:6px;">
-                            深圳科学高中外星人研究所，即科外所(KG Research Institude，即KGRI)，科高的民间音游社的主页。
-                        </div>
-                        <div style="margin-top:8px;font-size:14px;">
-                            <a href="/work/3" style="color:#58a6ff;text-decoration:none;">查看详情 →</a>
-                        </div>
-                    </div>
-                    <div class="release-divider"></div>
-                </div>
-
-                <!-- 项目 4：Notion博客 -->
-                <div class="release-item">
-                    <div class="release-left">
-                        <span class="tag">Notion博客</span>
-                        <div style="color:#6a6a80; font-size:12px; margin-top:2px; font-weight:400;">HongAX-Work-4</div>
-                    </div>
-                    <div class="release-right">
-                        <div>
-                            <span class="label orange">⚠ 停止维护</span>
-                            <span class="work-tag dev">NotionNext</span>
-                            <span class="work-tag dev">Vercel</span>
-                        </div>
-                        <div style="margin-top:6px;">
-                            一个基于 NotionNext 框架与 GitHub Pages 以及 Vercel 搭建的技术空间。搭好了才发现国内网络无法访问，遂放弃维护。
-                        </div>
-                        <div style="margin-top:8px;font-size:14px;color:#58a6ff;">
-                            <a href="/work/4" style="color:#58a6ff;text-decoration:none;">查看详情 →</a>
-                        </div>
-                    </div>
-                    <div class="release-divider"></div>
-                </div>
-
-                <!-- 项目 5：Gmeek博客 -->
-                <div class="release-item">
-                    <div class="release-left">
-                        <span class="tag">Gmeek博客</span>
-                        <div style="color:#6a6a80; font-size:12px; margin-top:2px; font-weight:400;">HongAX-Work-5</div>
-                    </div>
-                    <div class="release-right">
-                        <div>
-                            <span class="label green">✓ 已发布</span>
-                            <span class="work-tag ready">Gmeek</span>
-                            <span class="work-tag ready">HTML/CSS</span>
-                        </div>
-                        <div style="margin-top:6px;">
-                            我的个人博客，基于 Gmeek 框架与 GitHub Issues 搭建的技术空间。
-                        </div>
-                        <div style="margin-top:8px;font-size:14px;color:#58a6ff;">
-                            <a href="/work/5" style="color:#58a6ff;text-decoration:none;">查看详情 →</a>
-                        </div>
-                    </div>
-                    <div class="release-divider"></div>
-                </div>
-
-                <!-- 项目 6：oshit! -->
-                <div class="release-item">
-                    <div class="release-left">
-                        <span class="tag">oshit!</span>
-                        <div style="color:#6a6a80; font-size:12px; margin-top:2px; font-weight:400;">HongAX-Work-6</div>
-                    </div>
-                    <div class="release-right">
-                        <div>
-                            <span class="label green">✓ 已发布</span>
-                            <span class="work-tag ready">WebGame</span>
-                            <span class="work-tag ready">HTML/CSS</span>
-                        </div>
-                        <div style="margin-top:6px;">
-                            网页小游戏，改自“吃掉小鹿乃”。
-                        </div>
-                        <div style="margin-top:6px;">
-                            原项目仓库：https://github.com/arcxingye/EatKano
-                        </div>
-                        <div style="margin-top:6px;">
-                            已上架Taptap：https://www.taptap.cn/app/919451
-                        </div>
-                        <div style="margin-top:8px;font-size:14px;color:#58a6ff;">
-                            <a href="/work/6" style="color:#58a6ff;text-decoration:none;">查看详情 →</a>
-                        </div>
-                    </div>
-                    <div class="release-divider"></div>
-                </div>
-
-                <!-- 项目 7：樱花社主页 -->
-                <div class="release-item">
-                    <div class="release-left">
-                        <span class="tag">樱花社主页</span>
-                        <div style="color:#6a6a80; font-size:12px; margin-top:2px; font-weight:400;">HongAX-Work-7</div>
-                    </div>
-                    <div class="release-right">
-                        <div>
-                            <span class="label green">✓ 已发布</span>
-                            <span class="work-tag ready">樱花社</span>
-                            <span class="work-tag ready">HTML/CSS</span>
-                        </div>
-                        <div style="margin-top:6px;">
-                            深圳科学高中樱花社，又称SOS团(Subculture o Ooini Moriageru tame no Sakura no Dan，为了大大振兴亚文化而组成的樱花团)，ACGN社团。
-                        </div>
-                        <div style="margin-top:8px;font-size:14px;color:#58a6ff;">
-                            <a href="/work/7" style="color:#58a6ff;text-decoration:none;">查看详情 →</a>
-                        </div>
-                    </div>
-                    <div class="release-divider"></div>
-                </div>
-
-
-                <!-- 项目 1：Warma档案馆 -->
-                <div class="release-item">
-                    <div class="release-left">
-                        <span class="tag">Warma档案馆</span>
-                        <div style="color:#6a6a80; font-size:12px; margin-top:2px; font-weight:400;">HongAX-Work-1</div>
-                    </div>
-                    <div class="release-right">
-                        <div>
-                            <span class="label orange">⏳ 开发中</span>
-                            <span class="work-tag dev">HTML</span>
-                            <span class="work-tag dev">Warma</span>
-                        </div>
-                        <div style="margin-top:6px;">
-                            一个试图收集与虚拟主播 Warma 有关信息的粉丝档案馆。整理视频、周边与二创作品。
-                        <div style="margin-top:8px;font-size:14px;">
-                            <a href="/work/1" style="color:#58a6ff;text-decoration:none;">查看详情 →</a>
-                        </div>
-                    </div>
-                    <div class="release-divider"></div>
-                </div>
-
+            <!-- 动态渲染区域 -->
+            <div class="release-list work-detail-list" id="works-list">
+                <div class="loading-text">正在加载项目档案...</div>
             </div>
         </section>
-
     </main>
 
     <footer>
-        本网站由 <a href="https://github.com/HongAXE/hongaxe.github.io" target="_blank">GitHub</a> 强力驱动。<br>
-        © 2026 HongAX 的个人主页
+        <div>© 2026 HongAX 的个人主页</div>
+        <div>本网站由 <a href="https://github.com/HongAXE/hongaxe.github.io" target="_blank" rel="noopener noreferrer">GitHub Pages</a> 强力驱动。</div>
     </footer>
 
+    <script>
+        function escapeHTML(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag]));
+        }
+
+        function formatText(text) {
+            if (!text) return '';
+            return escapeHTML(text).replace(/\n/g, '<br>');
+        }
+
+        function renderWorks(data) {
+            const listEl = document.getElementById('works-list');
+            if (!data || data.length === 0) {
+                listEl.innerHTML = '<div class="loading-text">暂无项目数据</div>';
+                return;
+            }
+
+            // 按 ID 排序
+            data.sort((a, b) => a.id - b.id);
+
+            listEl.innerHTML = data.map(item => {
+                let labelClass = 'green';
+                if (item.status.includes('停止') || item.status.includes('开发中')) labelClass = 'orange';
+                
+                const tagsHtml = item.tags.map(t => `<span class="work-tag">${escapeHTML(t)}</span>`).join('');
+                
+                // 渲染底部操作区（主链接 + 额外附加链接）
+                let linksHtml = '';
+                if (item.url && item.url.trim() !== '') {
+                    const isExternal = item.url.startsWith('http');
+                    let linkHref = item.url;
+                    
+                    // 【修改点】：内部链接补全当前目录 ./ 前缀
+                    if (!isExternal) {
+                        linkHref = './' + item.url;
+                    }
+                    
+                    linksHtml += `<a href="${escapeHTML(linkHref)}" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''} style="color:#58a6ff; text-decoration:none; margin-right: 16px;">查看详情 →</a>`;
+                }
+
+                if (item.id === 0) {
+                    linksHtml += `<a href="../" style="color:#58a6ff; text-decoration:none; margin-right: 16px;">访问网站 →</a>`;
+                } else if (item.id === 6) {
+                    linksHtml += `<a href="https://github.com/arcxingye/EatKano" target="_blank" rel="noopener noreferrer" style="color:#8b949e; text-decoration:none; margin-right: 16px;">原项目仓库 →</a>`;
+                    linksHtml += `<a href="https://www.taptap.cn/app/919451" target="_blank" rel="noopener noreferrer" style="color:#8b949e; text-decoration:none;">TapTap 页面 →</a>`;
+                }
+
+                return `
+                <div class="release-item">
+                    <div class="release-left">
+                        <span class="tag">${escapeHTML(item.name)}</span>
+                        <div style="color:#8b949e; font-size:12px; font-weight:400;">HongAX-Work-${item.id}</div>
+                    </div>
+                    <div class="release-right">
+                        <div style="margin-bottom: 10px;">
+                            <span class="label ${labelClass}">${escapeHTML(item.status)}</span>
+                            ${tagsHtml}
+                        </div>
+                        <div style="color: #c9d1d9; line-height: 1.7; margin-bottom: 16px;">
+                            ${formatText(item.description)}
+                        </div>
+                        <div style="font-size:14px; display:flex; flex-wrap:wrap; gap:8px 16px;">
+                            ${linksHtml}
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        async function loadData() {
+            try {
+                const res = await fetch('../works.json');
+                if (!res.ok) throw new Error('网络请求失败');
+                const worksData = await res.json();
+                renderWorks(worksData);
+            } catch (error) {
+                console.error(error);
+                document.getElementById('works-list').innerHTML = `<div class="loading-text" style="color:#f85149;">数据加载失败，请确保在 HTTP 环境下运行并存在 ../works.json 文件。</div>`;
+            }
+        }
+
+        loadData();
+    </script>
 </body>
 </html>
