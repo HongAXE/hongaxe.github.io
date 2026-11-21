@@ -1,0 +1,11 @@
+[
+    { "id": 0, "name": "个人主页", "status": "✓ 已发布", "tags": ["HTML/CSS", "响应式"], "description": "本页面 —— 一个简洁、暗色风格的个人主页，用于展示信息、社交链接与作品。", "url": "" },
+    { "id": 1, "name": "Warma档案馆", "status": "⏳ 开发中", "tags": ["HTML", "Warma"], "description": "一个试图收集与Warma有关信息的档案馆。开发中…", "url": "1/" },
+    { "id": 2, "name": "自动贩卖机", "status": "✓ 已发布", "tags": ["Python", "CLI"], "description": "一个基于 Python 的控制台自动贩卖机程序，支持顾客模式、管理员模式、商品浏览与购买。", "url": "2/" },
+    { "id": 3, "name": "科外所主页", "status": "✓ 已发布", "tags": ["音游社", "响应式"], "description": "深圳科学高中外星人研究所，即科外所(KG Research Institude，即KGRI)，科高的民间音游社的主页。", "url": "3/" },
+    { "id": 4, "name": "Notion博客", "status": "⚠ 停止维护", "tags": ["NotionNext", "Vercel"], "description": "一个基于 NotionNext 框架与 GitHub Pages 以及 Vercel 搭建的技术空间。搭好了才发现国内网络无法访问，遂放弃维护。", "url": "4/" },
+    { "id": 5, "name": "Gmeek博客", "status": "✓ 已发布", "tags": ["Gmeek", "HTML/CSS"], "description": "我的个人博客，基于 Gmeek 框架与 GitHub Issues 搭建的技术空间。", "url": "5/" },
+    { "id": 6, "name": "oshit!", "status": "✓ 已发布", "tags": ["WebGame", "HTML/CSS"], "description": "网页小游戏，改自“吃掉小鹿乃”。原项目：https://github.com/arcxingye/EatKano 已上架TapTap", "url": "6/" },
+    { "id": 7, "name": "樱花社主页", "status": "✓ 已发布", "tags": ["樱花社", "HTML/CSS"], "description": "深圳科学高中樱花社，又称SOS团(Subculture o Ooini Moriageru tame no Sakura no Dan，为了大大振兴亚文化而组成的樱花团)，ACGN社团。", "url": "7/" },
+    { "id": 8, "name": "资源分享库", "status": "✓ 已发布", "tags": ["夸克网盘", "资源分享"], "description": "自己整理的一些实用资源，用夸克网盘分享，建议搭配云析(YunX)下载。", "url": "https://pan.quark.cn/s/687787aad593" }
+]
