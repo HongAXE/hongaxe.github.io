@@ -7,5 +7,6 @@
     { "id": 5, "name": "Gmeek博客", "status": "✓ 已发布", "tags": ["Gmeek", "HTML/CSS"], "description": "我的个人博客，基于 Gmeek 框架与 GitHub Issues 搭建的技术空间。", "url": "5/" },
     { "id": 6, "name": "oshit!", "status": "✓ 已发布", "tags": ["WebGame", "HTML/CSS"], "description": "网页小游戏，改自“吃掉小鹿乃”。原项目：https://github.com/arcxingye/EatKano 已上架TapTap", "url": "6/" },
     { "id": 7, "name": "樱花社主页", "status": "✓ 已发布", "tags": ["樱花社", "HTML/CSS"], "description": "深圳科学高中樱花社，又称SOS团(Subculture o Ooini Moriageru tame no Sakura no Dan，为了大大振兴亚文化而组成的樱花团)，ACGN社团。", "url": "7/" },
-    { "id": 8, "name": "资源分享库", "status": "✓ 已发布", "tags": ["夸克网盘", "资源分享"], "description": "自己整理的一些实用资源，用夸克网盘分享，建议搭配云析(YunX)下载。", "url": "https://pan.quark.cn/s/687787aad593" }
+    { "id": 8, "name": "资源分享库", "status": "✓ 已发布", "tags": ["夸克网盘", "资源分享"], "description": "自己整理的一些实用资源，用夸克网盘分享，建议搭配云析(YunX)下载。", "url": "https://pan.quark.cn/s/687787aad593" },
+    { "id": 9, "name": "补番表", "status": "✓ 已发布", "tags": ["EXCEL", "二刺螈"], "description": "我的看番记录。", "url": "https://www.kdocs.cn/l/ch6hnbySX3OS" }
 ]
